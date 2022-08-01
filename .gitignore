@@ -1,3 +1,5 @@
+build-and-push.sh
+
 # Music Genre Classification
 data/
 data-archives/

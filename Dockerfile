@@ -4,9 +4,15 @@ FROM public.ecr.aws/lambda/python:3.9
 COPY app.py ${LAMBDA_TASK_ROOT}
 
 # Install libs
-RUN yum install ffmpeg -y
-RUN yum install gstreamer1.0-plugins-base gstreamer1.0-plugins-ugly -y
-RUN yum install libsndfile -y
+
+# Install FFmpeg
+RUN mkdir /usr/local/bin/ffmpeg
+RUN wget -O /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+RUN tar xvf ffmpeg-4.2.1-amd64-static.tar.xz -C /usr/local/bin/ffmpeg
+RUN ln -s /usr/local/bin/ffmpeg/ffmpeg /usr/bin/ffmpeg
+
+# Install libsndfile and sox
+RUN yum install libsndfile sox -y
 
 # Install the function's dependencies using file requirements.txt
 # from your project folder.
