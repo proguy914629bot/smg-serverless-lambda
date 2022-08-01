@@ -1,0 +1,8 @@
+numpy
+torch
+scikit-learn
+librosa
+pandas
+requests
+soundfile
+audioread
