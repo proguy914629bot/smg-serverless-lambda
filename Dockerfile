@@ -18,7 +18,7 @@ RUN ln -s /usr/local/bin/ffmpeg/ffmpeg /usr/bin/ffmpeg
 # from your project folder.
 
 COPY requirements.txt  .
-RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}" --no-cache-dir # --no-cache-dir might be useful
 
 # Do some extra stuff
 RUN mkdir /tmp/smg-serverless
