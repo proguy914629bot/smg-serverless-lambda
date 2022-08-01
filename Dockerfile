@@ -11,7 +11,7 @@ RUN yum install wget tar libsndfile sox -y
 # Install FFmpeg
 RUN mkdir /usr/local/bin/ffmpeg
 RUN wget -O /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
-RUN tar xvf ffmpeg-4.2.1-amd64-static.tar.xz -C /usr/local/bin/ffmpeg
+RUN tar xvf /tmp/ffmpeg.tar.xz -C /usr/local/bin/ffmpeg
 RUN ln -s /usr/local/bin/ffmpeg/ffmpeg /usr/bin/ffmpeg
 
 # Install the function's dependencies using file requirements.txt
