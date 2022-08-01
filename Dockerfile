@@ -6,7 +6,7 @@ COPY app.py ${LAMBDA_TASK_ROOT}
 # Install libs
 
 # Install wget, tar, libsndfile and sox
-RUN yum install wget tar libsndfile sox -y
+RUN yum install wget tar xz libsndfile sox -y
 
 # Install FFmpeg
 RUN mkdir /usr/local/bin/ffmpeg
