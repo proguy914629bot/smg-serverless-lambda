@@ -2,6 +2,15 @@ import sys
 
 sys.path.extend(['/tmp/', '/tmp/smg_serverless'])
 
+import os
+
+try:
+    os.mkdir('/tmp/numba-cache')
+except:
+    pass
+
+os.environ['NUMBA_CACHE_DIR'] = '/tmp/numba-cache'
+
 import json
 import random
 import string

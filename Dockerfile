@@ -1,5 +1,9 @@
 FROM public.ecr.aws/lambda/python:3.9
 
+# Numba cache dir
+RUN mkdir /tmp/numba-cache
+ENV NUMBA_CACHE_DIR=/tmp/numba-cache
+
 # Copy function code
 COPY app.py ${LAMBDA_TASK_ROOT}
 
