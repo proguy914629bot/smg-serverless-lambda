@@ -1,3 +1,7 @@
+import sys
+
+sys.path.extend(['/tmp/', '/tmp/smg-serverless', '/tmp/smg-serverless/music_genre_classification'])
+
 import json
 import random
 import string
