@@ -24,5 +24,7 @@ RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}" --no-cache-d
 RUN mkdir /tmp/smg-serverless
 COPY music_genre_classification/ /tmp/smg-serverless
 
+COPY music_genre_classification/ .
+
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 CMD [ "app.handler" ]
