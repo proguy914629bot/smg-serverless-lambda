@@ -22,7 +22,7 @@ RUN pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}" --no-cache-d
 
 # Do some extra stuff
 RUN mkdir /tmp/smg-serverless
-COPY music_genre_classification/ /tmp/smg-serverless
+COPY music_genre_classification/ /tmp/smg_serverless
 
 COPY music_genre_classification .
 

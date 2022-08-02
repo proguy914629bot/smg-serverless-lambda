@@ -6,15 +6,8 @@ data-archives/
 raw_data.pkl
 set.pkl
 
-# Configs
-config.py
-!music-genre-classification/src/config.py
-
 # PyCharm stuff
 .idea
-
-# Useless JSON files
-*.json
 
 # Mac stuff, idk
 .DS_Store

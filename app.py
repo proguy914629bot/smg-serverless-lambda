@@ -1,6 +1,6 @@
 import sys
 
-sys.path.extend(['/tmp/', '/tmp/smg-serverless', '/tmp/smg-serverless/music_genre_classification'])
+sys.path.extend(['/tmp/', '/tmp/smg_serverless'])
 
 import json
 import random
@@ -8,7 +8,7 @@ import string
 
 import requests
 
-from music_genre_classification.src.get_genre import main as get_genre
+from smg_serverless.src.get_genre import main as get_genre  # type: ignore
 
 
 def get_url_and_save(url, filename):
