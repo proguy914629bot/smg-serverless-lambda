@@ -66,7 +66,7 @@ $ pip install --upgrade -r requirements.txt
 - `SPOTIFY_CLIENT_SECRET`
 
 
-. Continue with [Running](#running).
+6. Continue with [Running](#running).
 
 ### Running:
 All steps are going to be ran on local and in the same directory as the `config.json` file.
