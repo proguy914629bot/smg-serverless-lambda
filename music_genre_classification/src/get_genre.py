@@ -1,13 +1,11 @@
 import numpy as np
 import torch
-import sys
 
 from collections import Counter
 from sklearn.preprocessing import LabelEncoder
 
-from librosa.core import load
-from librosa.feature import melspectrogram
-from librosa import power_to_db
+# from librosa.core import load
+# from librosa.feature import melspectrogram
 
 from .model import genreNet
 from .config import MODELPATH
@@ -18,9 +16,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-def main(argv, *, verbose=False):
-    if len(argv) != 1:
-        raise Exception("Please provide a path to a song file.")
+def main(melspectrogram: np.ndarray, *, verbose=False):
+    # if len(argv) != 1:
+    #     raise Exception("Please provide a path to a song file.")
 
     le = LabelEncoder().fit(GENRES)
 
@@ -31,10 +29,11 @@ def main(argv, *, verbose=False):
     else:
         net.load_state_dict(torch.load(MODELPATH, map_location=torch.device('cpu')))
 
-    audio_path = argv[0]
-    y, sr = load(audio_path, mono=True, sr=22050)
+    # audio_path = argv[0]
+    # y, sr = load(audio_path, mono=True, sr=22050)
 
-    S = melspectrogram(y, sr).T
+    # S = melspectrogram(y, sr).T
+    S = melspectrogram.T
     S = S[:-1 * (S.shape[0] % 128)]
     num_chunk = S.shape[0] / 128
     data_chunks = np.split(S, num_chunk)
