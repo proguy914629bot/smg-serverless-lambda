@@ -60,7 +60,13 @@ $ pip install --upgrade -r requirements.txt
 4. Edit the `config.json` file. The following things that are required to be edited are:
 - `API_URL`: The URL of your AWS Lambda API Gateway.
 
-5. Continue with [Running](#running).
+5. Copy `config.example.py` to `config.py`, and fill in the required variables (listed below). Optionally, you can fill in the other optional varables.
+- `SPOTIFY_PLAYLIST_ID`
+- `SPOTIFY_CLIENT_ID`
+- `SPOTIFY_CLIENT_SECRET`
+
+
+. Continue with [Running](#running).
 
 ### Running:
 All steps are going to be ran on local and in the same directory as the `config.json` file.
