@@ -42,7 +42,7 @@ print("Note that this software only supports public playlists. This software doe
       "liked songs.")
 print("Also, make sure to add the redirect URI you passed in your config to your client's valid Redirect URIs.")
 
-status_code = os.system(sys.executable + " " + os.path.dirname(os.path.abspath(__file__)) + "/webserver.py")
+status_code = os.system("\"" + sys.executable + "\" \"" + os.path.dirname(os.path.abspath(__file__)) + "/webserver.py\"")
 
 if status_code != 0:  # Exited abnormally
     print("[-] Webserver exited abnormally. Please try again. If this is a bug, please submit an issue on GitHub, "

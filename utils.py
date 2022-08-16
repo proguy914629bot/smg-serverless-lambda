@@ -12,9 +12,24 @@ import spotify
 from librosa.core import load
 from librosa.feature import melspectrogram
 
+from aiobotocore.session import get_session
 
-with open('config.json') as _cjs:
-    cjs = json.load(_cjs)
+
+def verify_config_json():
+    if not os.path.isfile('config.json'):
+        raise FileNotFoundError('config.json not found')
+
+    with open('config.json', 'w') as _cjs:
+        cjs = json.load(_cjs)
+
+    for vars in ['API_URL', 'S3_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_REGION']:
+        if vars not in cjs:
+            raise KeyError('{} not found in config.json'.format(vars))
+
+    return cjs
+
+
+cjs = verify_config_json()
 
 
 def check_imports() -> tuple[bool, ImportError | None]:
@@ -131,8 +146,26 @@ async def run_genre_classification(track: spotify.Track) -> dict[str, float]:
         S = melspectrogram(y=y, sr=sr)
         S = S.tolist()
 
-        async with session.post(cjs["API_URL"], json={"melspectrogram": S}, timeout=900) as resp: # timeout = 900 seconds = 15 minutes = max lambda timeout
-             genres = await resp.json()
+        session = get_session()
+
+        async with session.create_client('s3', region_name=cjs["AWS_REGION"],
+                                         aws_access_key_id=cjs["AWS_ACCESS_KEY_ID"],
+                                         aws_secret_access_key=cjs["AWS_SECRET_ACCESS_KEY"]) as s3:
+            S_str = json.dumps(S).encode()
+
+            resp = await s3.put_object(Bucket=cjs["S3_BUCKET"], Key=track.id + ".json", Body=S_str)
+
+            response = await s3.get_object(Bucket=cjs["S3_BUCKET"], Key=track.id + ".json")
+
+            async with response['Body'] as stream:
+                if stream.read() != S_str:
+                    raise ValueError('Data not equal')
+
+        s3_melspectrogram = f"{track.id}.json"
+
+        async with session.post(cjs["API_URL"], json={"melspectrogram": s3_melspectrogram},
+                                timeout=900) as resp:  # timeout = 900 seconds = 15 minutes = max lambda timeout
+            genres = await resp.json()
 
     # "cd " + os.path.dirname(os.path.abspath(__file__)) + "music-genre-classification/src" + f" && python3
     # get_genre.py {track_path}"
