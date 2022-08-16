@@ -5,6 +5,7 @@ RUN mkdir /tmp/numba-cache
 ENV NUMBA_CACHE_DIR=/tmp/numba-cache
 
 # Copy function code
+COPY config.json ${LAMBDA_TASK_ROOT}
 COPY app.py ${LAMBDA_TASK_ROOT}
 
 # Install libs
