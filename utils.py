@@ -150,7 +150,8 @@ async def run_genre_classification(track: spotify.Track) -> dict[str, float]:
 
         async with session.create_client('s3', region_name=cjs["AWS_REGION"],
                                          aws_access_key_id=cjs["AWS_ACCESS_KEY_ID"],
-                                         aws_secret_access_key=cjs["AWS_SECRET_ACCESS_KEY"]) as s3:
+                                         aws_secret_access_key=cjs["AWS_SECRET_ACCESS_KEY"],
+                                         **cjs.get("AWS_S3_EXTRAS", {})) as s3:
             S_str = json.dumps(S).encode()
 
             resp = await s3.put_object(Bucket=cjs["S3_BUCKET"], Key=track.id + ".json", Body=S_str)
