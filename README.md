@@ -13,35 +13,42 @@ It is recommended to run the AWS Lambda setup before running the Local setup.
 $ git clone --single-branch --branch aws-lambda https://github.com/proguy914629bot/smg-serverless-lambda
 ```
 
-3. Make sure you have installed AWS CLI and configured it with your credentials using `aws configure`.
+3. Edit the `config.json` file. The following things that are in the config are:
+- `S3_BUCKET`: The S3 bucket to get all the data (required).
+- `AWS_ACCESS_KEY_ID`: The AWS Access Key ID to be used when getting the data to S3 (required).
+- `AWS_SECRET_ACCESS_KEY`: The AWS Secret Access Key to be used when getting the data to S3 (required).
+- `AWS_REGION`: The AWS Region to be used when getting the data to S3 (required).
+- `AWS_S3_EXTRAS`: The extra kwargs to be passed in the `boto3` client initialization. This should be a dict/dictionary (optional).
 
-3. Build docker image (use sudo/root if needed)
+4. Make sure you have installed AWS CLI and configured it with your credentials using `aws configure`.
+
+5. Build docker image (use sudo/root if needed)
 ```bash
 $ docker build -t smg-serverless-lambda .
 ```
 
-4. Create an ECR repository named `smg-serverless-lambda`
+6. Create an ECR repository named `smg-serverless-lambda`
 
-4. Login to AWS ECR (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
+7. Login to AWS ECR (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
 ```bash
 $ aws ecr get-login-password | sudo docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
 ```
 
-5. Tag the image (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
+8. Tag the image (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
 ```bash
 sudo docker tag smg-serverless-lambda:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
 ```
 
-6. Push docker image to ECR (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
+9. Push docker image to ECR (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
 ```bash
 $ sudo docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
 ```
 
-7. Create an AWS Lambda function named `smg-serverless-lambda` with the docker image linked to it.
+10. Create an AWS Lambda function named `smg-serverless-lambda` with the docker image linked to it.
 
-8. Add a trigger (specifically an API Gateway trigger) as a `Rest API` with the Security as `Open`.
+11. Add a trigger (specifically an API Gateway trigger) as a `Rest API` with the Security as `Open`.
 
-9. Continue with the [Local Setup](#local-setup).
+12. Continue with the [Local Setup](#local-setup).
 
 ### Local Setup:
 1. Clone the repository:
@@ -58,11 +65,11 @@ $ pip install --upgrade -r requirements.txt
 ```
 
 4. Edit the `config.json` file. The following things that are in the config are:
-- `API_URL`: The URL of your AWS Lambda API Gateway (required).
-- `S3_BUCKET`: The S3 bucket to store all the data (required).
-- `AWS_ACCESS_KEY_ID`: The AWS Access Key ID to be used when uploading the data to S3 (required).
-- `AWS_SECRET_ACCESS_KEY`: The AWS Secret Access Key to be used when uploading the data to S3 (required).
-- `AWS_REGION`: The AWS Region to be used when uploading the data to S3 (required).
+- `API_URL`: The URL of your AWS Lambda API Gateway. Should match the AWS Lambda Setup in step 3 (required).
+- `S3_BUCKET`: The S3 bucket to store all the data. Should match the AWS Lambda Setup in step 3 (required).
+- `AWS_ACCESS_KEY_ID`: The AWS Access Key ID to be used when uploading the data to S3. Should match the AWS Lambda Setup in step 3 (required).
+- `AWS_SECRET_ACCESS_KEY`: The AWS Secret Access Key to be used when uploading the data to S3. Should match the AWS Lambda Setup in step 3 (required).
+- `AWS_REGION`: The AWS Region to be used when uploading the data to S3. Should match the AWS Lambda Setup in step 3 (required).
 - `AWS_S3_EXTRAS`: The extra kwargs to be passed in the `aiobotocore` client initialization. This should be a dict/dictionary (optional).
 
 
