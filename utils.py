@@ -19,7 +19,7 @@ def verify_config_json():
     if not os.path.isfile('config.json'):
         raise FileNotFoundError('config.json not found')
 
-    with open('config.json', 'w') as _cjs:
+    with open('config.json', 'r') as _cjs:
         cjs = json.load(_cjs)
 
     for vars in ['API_URL', 'S3_BUCKET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_REGION']:
