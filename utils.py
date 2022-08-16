@@ -159,7 +159,7 @@ async def run_genre_classification(track: spotify.Track) -> dict[str, float]:
             response = await s3.get_object(Bucket=cjs["S3_BUCKET"], Key=track.id + ".json")
 
             async with response['Body'] as stream:
-                if stream.read() != S_str:
+                if await stream.read() != S_str:
                     raise ValueError('Data not equal')
 
         s3_melspectrogram = f"{track.id}.json"
