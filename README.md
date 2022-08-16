@@ -36,12 +36,12 @@ $ aws ecr get-login-password | sudo docker login --username AWS --password-stdin
 
 8. Tag the image (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
 ```bash
-sudo docker tag smg-serverless-lambda:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
+$ docker tag smg-serverless-lambda:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
 ```
 
 9. Push docker image to ECR (use sudo/root if needed). Replace `<account-id>` to your AWS account id.
 ```bash
-$ sudo docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
+$ docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/smg-serverless-lambda:latest
 ```
 
 10. Create an AWS Lambda function named `smg-serverless-lambda` with the docker image linked to it.
