@@ -6,10 +6,10 @@
 import os
 
 # DEFINE PATHS
-DATAPATH = '/tmp/smg_serverless/data/'
-RAW_DATAPATH = '/tmp/smg_serverless/utils/raw_data.pkl'
-SET_DATAPATH = '/tmp/smg_serverless/utils/set.pkl'
-MODELPATH = '/tmp/smg_serverless/model/net.pt'
+DATAPATH = 'smg_serverless/data/'
+RAW_DATAPATH = 'smg_serverless/utils/raw_data.pkl'
+SET_DATAPATH = 'smg_serverless/utils/set.pkl'
+MODELPATH = 'smg_serverless/model/net.pt'
 
 try:
     GENRES = os.listdir(DATAPATH)
